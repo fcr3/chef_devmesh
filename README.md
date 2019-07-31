@@ -38,14 +38,9 @@
   - axios
   - react-webcam
 
-## Common Errors:
-- Dealing with ELIFECYCLE Errors?
-  1. `sudo npm cache clean --force`
-  2. `sudo rm -rf node_modules`
-  3. `sudo npm install --save`
-  3. `npm start`
+## Setup
 
-## Installing Dependencies
+### Installing Dependencies
 1. pip3 or pip install all the python dependencies for the backend
 2. Set up redis by following the installation in the backend setup section.
 2. `npm install` in the `test_react_app` folder to install all the dependencies for the react app.
@@ -54,7 +49,7 @@
   - Food Model FP16: https://drive.google.com/open?id=1eC-ZKpiSOW8pHZ1m3rIbnMfcKN2Hf1gI
   - In the case that you don't like my models, please feel free to train your own models and plug them into the app. My recommendation is to follow the tutorial links below to train using Tensorflow's Object Detection API.
 
-## Procedure for starting application:
+### Procedure for starting application:
 1. open four terminals
 2. first terminal -> `$ redis-server`
 3. second terminal -> `$ cd <INSTALL_DIR>/devmesh_backend/ && celery worker -A openvino_backend.celery --loglevel=info`
@@ -62,15 +57,32 @@
 5. Make a config.js file and add the necessary requirements such as app_id, app_key, and Raspberry Pi backend url.
 5. fourth terminal -> `cd <INSTALL_DIR>/devmesh_backend/test_react_app && npm start`
 
-## Frontend References:
+## Additional Details for config.js
+1. Make an account on dataplicity and go through their tutorial to setup your raspberry pi for access via the internet
+2. Use the special url and copy and paste that into the first key `BACKEND_URL`
+3. Go to Edamam API's website and register for an account. You will need to sign up for their recipe API as well as make an application that uses the recipe API.
+4. Copy the app ID and app key into the remaining key-value pairs, respectively
+
+## Common Errors:
+- Dealing with ELIFECYCLE Errors?
+  1. `sudo npm cache clean --force`
+  2. `sudo rm -rf node_modules`
+  3. `sudo npm install --save`
+  3. `npm start`
+- Dealing with modules not being found?
+  1. Pay attention to what you used to install dependencies. Pip and pip3 might not install to the python you might be expecting. In addition, using sudo rather --user may also lead to some referencing problems. Make sure to stay consistent!
+
+## References
+
+### Frontend References:
 - https://www.npmjs.com/package/react-webcam
 - https://www.npmjs.com/package/react-images-upload
 
-## Backend Setup:
+### Backend Setup:
 - https://blog.miguelgrinberg.com/post/using-celery-with-flask
 - https://redis.io/topics/quickstart
 
-## Object detection model tutorial:
+### Object detection model tutorial:
 - https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html
 - https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md
 - https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10/issues/184
