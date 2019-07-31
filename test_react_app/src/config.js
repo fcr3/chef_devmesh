@@ -1,5 +1,5 @@
 export default {
-  'BACKEND_URL': 'https://soapiest-coyote-7876.dataplicity.io',
-  'APP_ID': '0c507f4c',
-  'APP_KEY': 'dffa96506e193d6ec1d0a6a947683251'
+  'BACKEND_URL': 'URL FOR BACKEND',
+  'APP_ID': 'APP ID FROM RECIPE API',
+  'APP_KEY': 'API KEY FROM RECIPE API'
 }
