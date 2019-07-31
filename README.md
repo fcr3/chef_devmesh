@@ -57,13 +57,13 @@
 5. Make a config.js file and add the necessary requirements such as app_id, app_key, and Raspberry Pi backend url.
 5. fourth terminal -> `cd <INSTALL_DIR>/devmesh_backend/test_react_app && npm start`
 
-## Additional Details for config.js
+### Additional Details for config.js
 1. Make an account on dataplicity and go through their tutorial to setup your raspberry pi for access via the internet
 2. Use the special url and copy and paste that into the first key `BACKEND_URL`
 3. Go to Edamam API's website and register for an account. You will need to sign up for their recipe API as well as make an application that uses the recipe API.
 4. Copy the app ID and app key into the remaining key-value pairs, respectively
 
-## Common Errors:
+### Common Errors:
 - Dealing with ELIFECYCLE Errors?
   1. `sudo npm cache clean --force`
   2. `sudo rm -rf node_modules`
