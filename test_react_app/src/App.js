@@ -215,10 +215,7 @@ class App extends Component {
                 <div onClick={(e) => this.detect(this.state.imageSrc, 'food')} style={{'marginRight': '1rem'}}>
                   <Button variant="contained" color="secondary">Detect Food</Button>
                 </div>
-                <div
-                  onClick={(e) => this.detect(this.state.imageSrc, 'gesture')} >
-                  <Button variant="contained" color="secondary">Detect Gesture</Button>
-                </div>
+                
               </div>
             </div>
           </div>
