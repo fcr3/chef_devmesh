@@ -11,6 +11,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar'
 import TypoGraphy from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+
 import './App.css';
 
 class App extends Component {
@@ -299,26 +306,76 @@ class App extends Component {
                 this.state.recipes.length > 0 ?
                 this.state.recipes.map((val, index) => {
                   return (
-                  <Paper key={index} style={{'margin': '1rem', 'width': '500px','padding': '0.5rem', 'wordWrap': 'break-word'}}>
-                    <h3>{val.label} by {val.source}</h3>
-                    <img src={val.image} alt="food_image" />
-                    <h4>Calories</h4>
-                    <p>{val.calories}</p>
-                    <h4>Health Labels</h4>
-                    <ul>
-                      {val.healthLabels.map((val_h, index_h) => {
-                        return (<li key={index_h}>{val_h}</li>)
-                      })}
-                    </ul>
-                    <h4>Ingredient List</h4>
-                    <ul>
-                      {val.ingredientLines.map((val_ing, index_ing) => {
-                        return (<li key={index_ing}>{val_ing}</li>)
-                      })}
-                    </ul>
-                    <h4>URL</h4>
-                    <p><a href={val.url}>{val.url}</a></p>
-                  </Paper> )
+                  /** Original Code in case I messed up */
+                  // <Paper key={index} style={{'margin': '1rem', 'width': '500px','padding': '0.5rem', 'wordWrap': 'break-word'}}>
+                  //   <h3>{val.label} by {val.source}</h3>
+                  //   <img src={val.image} alt="food_image" />
+                  //   <h4>Calories</h4>
+                  //   <p>{val.calories}</p>
+                  //   <h4>Health Labels</h4>
+                  //   <ul>
+                  //     {val.healthLabels.map((val_h, index_h) => {
+                  //       return (<li key={index_h}>{val_h}</li>)
+                  //     })}
+                  //   </ul>
+                  //   <h4>Ingredient List</h4>
+                  //   <ul>
+                  //     {val.ingredientLines.map((val_ing, index_ing) => {
+                  //       return (<li key={index_ing}>{val_ing}</li>)
+                  //     })}
+                  //   </ul>
+                  //   <h4>URL</h4>
+                  //   <p><a href={val.url}>{val.url}</a></p>
+                  // </Paper> 
+
+                  /** New code w/ card */
+                  <Card key={index} style={{'margin': '1rem', 'width': '500px','padding': '0.5rem', 'wordWrap': 'break-word'}}>
+                     <CardActionArea>
+                     <CardMedia
+                        style={{'height': '140px'}}
+                        image={val.image}
+                        title={val.label + " by " + val.source}
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {val.label} by {val.source}
+                        </Typography>
+                        <Typography variant="body2" color={black} component="p">
+                          Calories
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                        {val.calories}
+                        </Typography>
+                        <Typography variant="body2" color={black} component="p">
+                        Health Labels
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p"> 
+                        <ul>
+                          {val.healthLabels.map((val_h, index_h) => {
+                          return (<li key={index_h}>{val_h}</li>)
+                          })}
+                        </ul>
+                        </Typography>
+                        <Typography variant="body2" color={black} component="p">
+                        Ingredient List
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p"> 
+                        <ul>
+                          {val.ingredientLines.map((val_ing, index_ing) => {
+                          return (<li key={index_ing}>{val_ing}</li>)
+                          })}
+                        </ul>
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button size="small" color="primary">
+                          <a href='URL'>{val.url}</a>
+                        </Button>
+                      </CardActions>
+                    </CardActionArea>
+                  </Card> 
+                  
+                  )
                 }) : null
               }
             </div>
