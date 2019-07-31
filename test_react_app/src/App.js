@@ -9,7 +9,7 @@ import taco from './taco.png';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar'
-import TypoGraphy from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
 import Card from '@material-ui/core/Card';
@@ -195,14 +195,14 @@ class App extends Component {
         <header className="App-header">
           <AppBar color="primary" position="static">
             <Toolbar>
-              <TypoGraphy color="inherit"
+              <Typography color="inherit"
                 style={{'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'center',}}
               >
                 <img src={taco} className="taco" alt="taco" style={{'width': '30px', 'height': '30px'}}/>
-             </TypoGraphy>
-             <TypoGraphy  variant='h5' color="inherit" style={{'marginLeft': '16px'}}>
+             </Typography>
+             <Typography  variant='h5' color="inherit" style={{'marginLeft': '16px'}}>
                Chef.ai
-             </TypoGraphy>
+             </Typography>
             </Toolbar>
           </AppBar>
         </header>
@@ -222,7 +222,7 @@ class App extends Component {
                 <div onClick={(e) => this.detect(this.state.imageSrc, 'food')} style={{'marginRight': '1rem'}}>
                   <Button variant="contained" color="secondary">Detect Food</Button>
                 </div>
-                
+
               </div>
             </div>
           </div>
@@ -326,7 +326,7 @@ class App extends Component {
                   //   </ul>
                   //   <h4>URL</h4>
                   //   <p><a href={val.url}>{val.url}</a></p>
-                  // </Paper> 
+                  // </Paper>
 
                   /** New code w/ card */
                   <Card key={index} style={{'margin': '1rem', 'width': '500px','padding': '0.5rem', 'wordWrap': 'break-word'}}>
@@ -340,26 +340,26 @@ class App extends Component {
                         <Typography gutterBottom variant="h5" component="h2">
                           {val.label} by {val.source}
                         </Typography>
-                        <Typography variant="body2" color={black} component="p">
+                        <Typography variant="body2" color='black' component="p">
                           Calories
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
                         {val.calories}
                         </Typography>
-                        <Typography variant="body2" color={black} component="p">
+                        <Typography variant="body2" color='black' component="p">
                         Health Labels
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p"> 
+                        <Typography variant="body2" color="textSecondary" component="p">
                         <ul>
                           {val.healthLabels.map((val_h, index_h) => {
                           return (<li key={index_h}>{val_h}</li>)
                           })}
                         </ul>
                         </Typography>
-                        <Typography variant="body2" color={black} component="p">
+                        <Typography variant="body2" color='black' component="p">
                         Ingredient List
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p"> 
+                        <Typography variant="body2" color="textSecondary" component="p">
                         <ul>
                           {val.ingredientLines.map((val_ing, index_ing) => {
                           return (<li key={index_ing}>{val_ing}</li>)
@@ -373,8 +373,8 @@ class App extends Component {
                         </Button>
                       </CardActions>
                     </CardActionArea>
-                  </Card> 
-                  
+                  </Card>
+
                   )
                 }) : null
               }
