@@ -50,8 +50,8 @@
 2. Set up redis by following the installation in the backend setup section.
 2. `npm install` in the `test_react_app` folder to install all the dependencies for the react app.
 3. Download weights for food model and gesture model
-  - Gesture Model: https://drive.google.com/open?id=1_LJ3qbv3_mtnC0gV4BxH9deoy-55avXi
-  - Food Model: https://drive.google.com/open?id=1nDDaEpm7hNG8eR4vXBATMpWRrOL-4-jq
+  - Food Model FP32: https://drive.google.com/open?id=1nDDaEpm7hNG8eR4vXBATMpWRrOL-4-jq
+  - Food Model FP16: https://drive.google.com/open?id=1eC-ZKpiSOW8pHZ1m3rIbnMfcKN2Hf1gI
   - In the case that you don't like my models, please feel free to train your own models and plug them into the app. My recommendation is to follow the tutorial links below to train using Tensorflow's Object Detection API.
 
 ## Procedure for starting application:
