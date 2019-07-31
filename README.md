@@ -33,6 +33,7 @@
   - base64
   - PIL.Image
   - io
+  - redis
 - Frontend:
   - React dependencies
   - axios
