@@ -210,6 +210,10 @@ class App extends Component {
           {config['TEST_VAR']}
         </div>
 
+        <div>
+          {config['PROD_VAR']}
+        </div>
+
         <div style={{'display': 'flex', 'flexDirection': 'row', 'flexWrap': 'wrap'}}>
           <div style={{'display': 'flex', 'flexDirection': 'column'}}>
             <div style={{'margin': '2rem 2rem 0rem 2rem'}}>

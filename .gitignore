@@ -1,4 +1,6 @@
 test_react_app/node_modules
 test_react_app/src/config.js
 test_react_app/build
+test_react_app/.env
+test_react_app/netlify.toml
 __pycache__
