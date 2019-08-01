@@ -6,7 +6,6 @@ import num_to_food from './PredMap'
 import config from './config'
 import axios from 'axios';
 import taco from './taco.png';
-import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -23,7 +22,6 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    console.log(process.env)
     this.detectFood = this.detect.bind(this)
     this.getResult = this.getResult.bind(this)
     this.getImageSrc = this.getImageSrc.bind(this)
@@ -207,6 +205,10 @@ class App extends Component {
             </Toolbar>
           </AppBar>
         </header>
+
+        <div>
+          {config['TEST_VAR']}
+        </div>
 
         <div style={{'display': 'flex', 'flexDirection': 'row', 'flexWrap': 'wrap'}}>
           <div style={{'display': 'flex', 'flexDirection': 'column'}}>
