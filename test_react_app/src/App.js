@@ -23,6 +23,7 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
+    console.log(process.env)
     this.detectFood = this.detect.bind(this)
     this.getResult = this.getResult.bind(this)
     this.getImageSrc = this.getImageSrc.bind(this)
