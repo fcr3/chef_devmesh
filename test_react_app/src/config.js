@@ -8,6 +8,7 @@ var configs =  {
 if (process.env.NODE_ENV === 'production') {
   console.log(process.env)
   console.log(process.env.TEST_KEY)
+  console.log(process.env.REACT_APP_TEST_KEY)
 
   configs =  {
     'PROD_VAR': "PROD_VAR",
