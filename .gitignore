@@ -9,3 +9,7 @@ __pycache__
 .netlify
 config.js
 redis-stable
+*.pb
+saved_model
+checkpoint
+model.ckpt.*
