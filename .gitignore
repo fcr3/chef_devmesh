@@ -4,3 +4,8 @@ test_react_app/build
 test_react_app/.env
 test_react_app/netlify.toml
 __pycache__
+
+*.rdb
+.netlify
+config.js
+redis-stable

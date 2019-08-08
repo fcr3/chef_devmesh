@@ -93,10 +93,9 @@ class App extends Component {
   * backend every two seconds (hence 2000 in milliseconds)
   * by calling the getResult function (see first argument).
   */
-  detect(img, model_type) {
+  detect(img, model_type, device) {
     // Call to axios, img base64 encoded
     var BACKEND_URL = "http://127.0.0.1:5000"
-    const device = 'cpu'
     axios.post(`${BACKEND_URL}/detect` , {img, model_type, device}, {
       headers: {
         'Content-Type': 'application/json'
@@ -226,10 +225,13 @@ class App extends Component {
             <div style={{'display': 'flex', 'flexDirection': 'column', 'margin': '2rem 2rem 0rem 2rem'}}>
               <h1>Let's see what we have!</h1>
               <div style={{'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'center', 'alignItems': 'center'}}>
-                <div onClick={(e) => this.detect(this.state.imageSrc, 'food')} style={{'marginRight': '1rem'}}>
-                  <Button variant="contained" color="secondary">Detect Food</Button>
+                <div onClick={(e) => this.detect(this.state.imageSrc, 'food', 'cpu')} style={{'marginRight': '1rem'}}>
+                  <Button variant="contained" color="secondary">Detect Food (CPU)</Button>
                 </div>
 
+                <div onClick={(e) => this.detect(this.state.imageSrc, 'food', 'myriad')} style={{'marginRight': '1rem'}}>
+                  <Button variant="contained" color="secondary">Detect Food (MYRIAD)</Button>
+                </div>
               </div>
             </div>
           </div>
@@ -313,27 +315,6 @@ class App extends Component {
                 this.state.recipes.length > 0 ?
                 this.state.recipes.map((val, index) => {
                   return (
-                  /** Original Code in case I messed up */
-                  // <Paper key={index} style={{'margin': '1rem', 'width': '500px','padding': '0.5rem', 'wordWrap': 'break-word'}}>
-                  //   <h3>{val.label} by {val.source}</h3>
-                  //   <img src={val.image} alt="food_image" />
-                  //   <h4>Calories</h4>
-                  //   <p>{val.calories}</p>
-                  //   <h4>Health Labels</h4>
-                  //   <ul>
-                  //     {val.healthLabels.map((val_h, index_h) => {
-                  //       return (<li key={index_h}>{val_h}</li>)
-                  //     })}
-                  //   </ul>
-                  //   <h4>Ingredient List</h4>
-                  //   <ul>
-                  //     {val.ingredientLines.map((val_ing, index_ing) => {
-                  //       return (<li key={index_ing}>{val_ing}</li>)
-                  //     })}
-                  //   </ul>
-                  //   <h4>URL</h4>
-                  //   <p><a href={val.url}>{val.url}</a></p>
-                  // </Paper>
 
                   /** New code w/ card */
                   <Card key={index} style={{'margin': '1rem', 'width': '500px','padding': '0.5rem', 'wordWrap': 'break-word'}}>
