@@ -1,0 +1,40 @@
+item {
+ id: 1
+ name: 'banana'
+}
+item {
+ id: 2
+ name: 'bell pepper'
+}
+item {
+ id: 3
+ name: 'tomato'
+}
+item {
+ id: 4
+ name: 'broccoli'
+}
+item {
+ id: 5
+ name: 'cheese'
+}
+item {
+ id: 6
+ name: 'beef'
+}
+item {
+ id: 7
+ name: 'steak'
+}
+item {
+ id: 8
+ name: 'olive oil'
+}
+item {
+ id: 9
+ name: 'corn'
+}
+item {
+ id: 10
+ name: 'eggs'
+}
