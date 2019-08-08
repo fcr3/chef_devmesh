@@ -36,9 +36,15 @@ def object_detection(self, uri, model, dev):
     # Getting Model
     path_to_xml = None
     path_to_bin = None
-    if model.lower() == 'food' or model.lower() == 'gesture':
-        path_to_xml = './' + str(model.lower()) + '_model/frozen_inference_graph.xml'
-        path_to_bin = './' + str(model.lower()) + '_model/frozen_inference_graph.bin'
+    if model.lower() == 'food':
+        if dev.lower() == 'cpu':
+            path_to_xml = './' + str(model.lower()) + '_model_fp32/frozen_inference_graph.xml'
+            path_to_bin = './' + str(model.lower()) + '_model_fp32/frozen_inference_graph.bin'
+        elif dev.lower() == 'myriad':
+            path_to_xml = './' + str(model.lower()) + '_model_fp16/frozen_inference_graph.xml'
+            path_to_bin = './' + str(model.lower()) + '_model_fp16/frozen_inference_graph.xml'
+        else:
+            return {'result': '', 'info_state': str(dev) + ' not a valid device', 'status': 'incomplete'}
     else:
         return {'result': '', 'info_state': str(model) + 'not a valid model', 'status': 'incomplete'}
 
@@ -50,9 +56,6 @@ def object_detection(self, uri, model, dev):
     obj_in_frame = cv2.resize(obj_frame, (w, h))
     obj_in_frame = obj_in_frame.transpose((2, 0, 1))
     obj_in_frame = obj_in_frame.reshape((n, c, h, w))
-
-    if dev.lower() != 'cpu' and dev.lower() != 'myriad':
-        return {'result': '', 'info_state': str(dev) + ' not a valid device', 'status': 'incomplete'}
 
     obj_plugin = IEPlugin(device=dev.upper())
     if dev.lower() == 'cpu':
