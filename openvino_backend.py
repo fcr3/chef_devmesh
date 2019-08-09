@@ -38,11 +38,11 @@ def object_detection(self, uri, model, dev):
     path_to_bin = None
     if model.lower() == 'food':
         if dev.lower() == 'cpu':
-            path_to_xml = './' + str(model.lower()) + '_model_fp32/frozen_inference_graph.xml'
-            path_to_bin = './' + str(model.lower()) + '_model_fp32/frozen_inference_graph.bin'
+            path_to_xml = './' + str(model.lower()) + '_model_fp32_v2/frozen_inference_graph.xml'
+            path_to_bin = './' + str(model.lower()) + '_model_fp32_v2/frozen_inference_graph.bin'
         elif dev.lower() == 'myriad':
-            path_to_xml = './' + str(model.lower()) + '_model_fp16/frozen_inference_graph.xml'
-            path_to_bin = './' + str(model.lower()) + '_model_fp16/frozen_inference_graph.xml'
+            path_to_xml = './' + str(model.lower()) + '_model_fp16_v2/frozen_inference_graph.xml'
+            path_to_bin = './' + str(model.lower()) + '_model_fp16_v2/frozen_inference_graph.bin'
         else:
             return {'result': '', 'info_state': str(dev) + ' not a valid device', 'status': 'incomplete'}
     else:
