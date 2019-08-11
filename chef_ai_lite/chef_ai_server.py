@@ -1,32 +1,40 @@
-from flask import Flask, request, jsonify, url_for
+from flask import Flask, request, jsonify, render_template, redirect, url_for, Response
 from openvino.inference_engine import IEPlugin, IENetwork
-from celery import Celery
 import cv2
 import numpy as np
 import base64
 from PIL import Image
 import io
+import os
 
 
 app = Flask(__name__)
-app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
-app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
-
-celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
-celery.conf.update(app.config)
 
 # CORS Agreement Code Snippet
 @app.after_request
 def after_request(response):
     # Make sure to change localhost:3000 to the actual host:port you want
-    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+    response.headers.add('Access-Control-Allow-Origin', 'http://127.0.0.1:5000')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     response.headers.add('Access-Control-Allow-Credentials', 'true')
     return response
 
-@celery.task(bind=True)
-def object_detection(self, uri, model, dev):
+# Front end rendering
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'GET':
+        return render_template('index.html')
+
+    return redirect(url_for('index'))
+
+# Backend Test Route
+@app.route('/test')
+def test():
+    return jsonify({"message": 'test successful'}), 200
+
+# Backend for detections
+def object_detection(uri, model, dev):
     # Pre processing base64 encoded picture
     encoded_data = uri.split(',')[1]
     decoded_data = base64.b64decode(encoded_data)
@@ -108,24 +116,8 @@ def detect():
     img_base64 = req_json['img']
     model = req_json['model_type']
     device = req_json['device']
-    task = object_detection.apply_async(args=[img_base64, model, device])
-    return jsonify({'task_id': task.id}), 202
-
-@app.route('/status/<task_id>', methods=['GET'])
-def taskstatus(task_id):
-    response = {}
-    task = object_detection.AsyncResult(task_id)
-    if task.state == 'PENDING':
-        response = {'state': task.state, 'status': 'Pending...'}
-    elif task.state != 'FAILURE':
-        response = {'state': task.state, 'status': task.info.get('status', '')}
-        if 'result' in task.info:
-            response['result'] = task.info['result']
-        if 'info_state' in task.info:
-            response['info_state'] = task.info['info_state']
-    else:
-        response = {'state': task.state, 'status': str(task.info)}
-    return jsonify(response)
+    task = object_detection(img_base64, model, device)
+    return jsonify(task), 202
 
 if __name__ == '__main__':
     app.run(debug=True)

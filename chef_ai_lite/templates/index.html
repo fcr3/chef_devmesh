@@ -1,0 +1,145 @@
+<html>
+  <head>
+    <Title>Chef.ai</Title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/styles.css">
+  </head>
+  <style>
+    body {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      font-family: 'Roboto', sans-serif;
+    }
+    button {
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      margin-left: 16px;
+    }
+    #comparison {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    #last-compare {
+      margin-left: 16px;
+    }
+    #webcam {
+      width: 500px;
+      height: 375px;
+      background-color: #666;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h2>Let's see what you have!</h3>
+      <video autoplay="true" id="webcam"></video>
+      <button onclick="handleUpload()" id="capture_button">
+        Capture Image
+      </button>
+    </div>
+
+    <div class="container">
+      <h2>Upload a photo of your groceries!</h3>
+      <input name="uploded" id="uploaded_file" type="file">
+    </div>
+
+    <canvas id="can" style="display: none;"></canvas>
+
+    <div class="container">
+      <h2>Let's see what we have!</h2>
+      <div id="comparison">
+        <button onclick="handleInference('c')">Detect (CPU)</button>
+        <button onclick="handleInference('m')" id="last-compare">Detect (CPU)</button>
+      </div>
+      <h2>Predictions!</h2>
+      <div id="predictions">
+
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Ooo Pretty!</h2>
+      <div id="comparison">
+        <div>
+          <h3>Input Photo</h3>
+          <img id="display" src="" alt="webcam" width="300"/>
+        </div>
+        <div id="last-compare">
+          <h3>Result Photo</h3>
+          <img id="result" src="" alt="webcam" width="300"/>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("uploaded_file").onchange = (e) => {
+        var reader = new FileReader()
+        reader.onload = (e) => {
+          document.getElementById("display").src = e.target.result;
+        }
+        if (e.target.files[0] !== null && e.target.files[0] !== undefined) {
+          reader.readAsDataURL(e.target.files[0])
+        }
+      }
+
+      const handleUpload = () => {
+        var canvas = document.getElementById('can')
+        const webcam = document.getElementById('webcam')
+
+        canvas.width = webcam.videoWidth
+        canvas.height = webcam.videoHeight
+        canvas.getContext('2d').drawImage(webcam, 0, 0)
+
+        canvas = document.getElementById('can')
+        document.getElementById("display").src = canvas.toDataURL('image/jpeg')
+      }
+
+      // Handling inference, sending post to Backend
+      const handleInference = (option) => {
+        var ops = {
+          method: 'POST',
+          body: JSON.stringify({
+            'img': document.getElementById("display").src,
+            'model_type': 'food',
+            'device': 'cpu'
+          }),
+          headers: {'Content-Type': 'application/json'}
+        }
+
+        if (option === 'm') {
+          ops = {
+            method: 'POST',
+            body: JSON.stringify({
+              'img': document.getElementById("display").src,
+              'model_type': 'food',
+              'device': 'myriad'
+            }),
+            headers: {'Content-Type': 'application/json'}
+          }
+        }
+
+        fetch("/detect", ops).then((data) => {
+          return data.json()
+        }).then((res) => {
+          document.getElementById("predictions").innerHTML = res.info_state
+          document.getElementById("result").src = res.result
+        })
+      }
+
+      // Script for running cam feed in javascript
+      var webcam = document.getElementById("webcam")
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({video: true}).then((feed) => {
+          webcam.srcObject = feed
+        }).catch((err) => console.log(err))
+      }
+    </script>
+  </body>
+</html>
