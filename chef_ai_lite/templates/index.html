@@ -92,6 +92,7 @@
     <div class="container" id="display-recipes" style="display: none;">
       <h2>Let's see what we can make!</h2>
       <button onclick="handleRecipes()" style="max-width: 200px">Get Recipes!</button>
+      <button onclick="clearRecipes()" style="max-width: 200px">Clear</button>
       <h3>Recipes</h3>
       <div id="recipes">
         <ul id="recipe-list"></ul>
@@ -125,6 +126,10 @@
 
         canvas = document.getElementById('can')
         document.getElementById("display").src = canvas.toDataURL('image/jpeg')
+      }
+
+      const clearRecipes = () => {
+        document.getElementById("recipe-list").innerHTML = ""
       }
 
       // Handling inference, sending post to Backend
@@ -191,6 +196,7 @@
           return data.json()
         }).then((res) => {
           const {hits} = res
+          document.getElementById("recipe-list").innerHTML = ""
           var recipes = hits.map((val, index) => {
             const {recipe} = val
             const {url, ingredientLines, calories, healthLabels, label, source, image} = recipe
